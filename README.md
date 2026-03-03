@@ -2,41 +2,20 @@
 
 An MCP server that wraps the [Tolgee](https://tolgee.io) localization platform API, enabling LLMs to manage translation projects, keys, translations, languages, and related workflows.
 
-## Setup
+## Quick Start
 
-### Prerequisites
+The only prerequisite is [uv](https://docs.astral.sh/uv/). No cloning or manual installation required.
 
-- Python 3.11+
-- [uv](https://docs.astral.sh/uv/)
-- A Tolgee API key (from your Tolgee instance or [Tolgee Cloud](https://app.tolgee.io))
+### Claude Desktop
 
-### Installation
-
-```bash
-git clone https://github.com/ytarfa/tolgee-mcp.git
-cd tolgee-mcp
-uv sync
-```
-
-### Configuration
-
-Set the following environment variables:
-
-| Variable | Required | Default | Description |
-|---|---|---|---|
-| `TOLGEE_API_KEY` | Yes | — | Your Tolgee API key |
-| `TOLGEE_API_URL` | No | `https://app.tolgee.io` | Base URL of your Tolgee instance |
-
-### Usage with Claude Desktop
-
-Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_desktop_config.json` on macOS):
+Add to your config (`~/Library/Application Support/Claude/claude_desktop_config.json` on macOS):
 
 ```json
 {
   "mcpServers": {
     "tolgee": {
-      "command": "uv",
-      "args": ["run", "--directory", "/path/to/tolgee-mcp", "tolgee-mcp"],
+      "command": "uvx",
+      "args": ["tolgee-mcp"],
       "env": {
         "TOLGEE_API_KEY": "your-api-key"
       }
@@ -45,13 +24,39 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
 }
 ```
 
-### Running directly
+### Other MCP Clients
+
+Any MCP client that supports STDIO servers can use the same pattern:
 
 ```bash
-TOLGEE_API_KEY=your-api-key uv run tolgee-mcp
+TOLGEE_API_KEY=your-api-key uvx tolgee-mcp
 ```
 
-The server uses STDIO transport.
+### Self-hosted Tolgee
+
+If you're running your own Tolgee instance, add the `TOLGEE_API_URL` environment variable:
+
+```json
+{
+  "mcpServers": {
+    "tolgee": {
+      "command": "uvx",
+      "args": ["tolgee-mcp"],
+      "env": {
+        "TOLGEE_API_KEY": "your-api-key",
+        "TOLGEE_API_URL": "https://tolgee.your-domain.com"
+      }
+    }
+  }
+}
+```
+
+## Configuration
+
+| Variable | Required | Default | Description |
+|---|---|---|---|
+| `TOLGEE_API_KEY` | Yes | — | Your Tolgee API key |
+| `TOLGEE_API_URL` | No | `https://app.tolgee.io` | Base URL of your Tolgee instance |
 
 ## Tools
 
@@ -112,21 +117,13 @@ The server uses STDIO transport.
 | `list_namespaces` | List all used namespaces |
 | `update_namespace` | Rename a namespace |
 
-## Project Structure
+## Development
 
-```
-src/tolgee_mcp/
-  __init__.py
-  __main__.py        # Entry point
-  server.py          # FastMCP instance and tool registration
-  client.py          # Async HTTP client for the Tolgee API
-  tools/
-    projects.py      # Project management tools
-    languages.py     # Language management tools
-    keys.py          # Key management tools
-    translations.py  # Translation tools
-    export_import.py # Export and import tools
-    tags.py          # Tag and namespace tools
+```bash
+git clone https://github.com/ytarfa/tolgee-mcp.git
+cd tolgee-mcp
+uv sync
+TOLGEE_API_KEY=your-api-key uv run tolgee-mcp
 ```
 
 ## License
