@@ -11,3 +11,6 @@ wheels/
 
 # OpenCode
 .opencode/
+
+# OpenSpec
+openspec/
