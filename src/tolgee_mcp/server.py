@@ -17,6 +17,7 @@ import tolgee_mcp.tools.keys  # noqa: E402, F401
 import tolgee_mcp.tools.translations  # noqa: E402, F401
 import tolgee_mcp.tools.export_import  # noqa: E402, F401
 import tolgee_mcp.tools.tags  # noqa: E402, F401
+import tolgee_mcp.tools.rest  # noqa: E402, F401
 
 
 def main() -> None:
