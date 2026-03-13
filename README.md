@@ -103,6 +103,7 @@ If you're running your own Tolgee instance, add the `TOLGEE_API_URL` environment
 | Tool | Description |
 |---|---|
 | `list_keys` | List localization keys with pagination |
+| `select_keys` | Select key IDs using Tolgee translation-view filters |
 | `search_keys` | Search keys by name |
 | `create_key` | Create a new key with optional translations and namespace |
 | `update_key` | Update a key's name |
@@ -135,6 +136,14 @@ If you're running your own Tolgee instance, add the `TOLGEE_API_URL` environment
 | `remove_tag_from_key` | Remove a tag from a key |
 | `list_namespaces` | List all used namespaces |
 | `update_namespace` | Rename a namespace |
+
+### Generic REST Coverage
+
+| Tool | Description |
+|---|---|
+| `tolgee_api_request` | Call any Tolgee REST API endpoint from the official docs, including endpoints that do not have a dedicated MCP wrapper yet |
+
+Use `tolgee_api_request` for capabilities not covered by the high-frequency tools above, such as labels, screenshots, suggestions, invitations, tasks, branching, content delivery, or other newer REST API endpoints.
 
 ## Development
 
